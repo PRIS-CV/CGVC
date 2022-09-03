@@ -15,7 +15,7 @@ Code release for Cross-Layer Feature based Multi-Granularity Visual Classificati
 ## Data
 - Download datasets
 - Extract them to `data/Birds/`, `data/Airs/` and `data/Cars/`, respectively.
-- Split the dataset into train and test folder, the index of each class should follow the Birds.xls, Air.xls, and Cars.xls
+- Split the dataset into train and test folder, the index of each class should follow the Birds.xls, Airs.xls, and Cars.xls
 
 * e.g., CUB-200-2011 dataset
 ```
