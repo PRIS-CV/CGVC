@@ -1,4 +1,4 @@
-# Fine-Grained-or-Not
+# CGVC
 Code release for Cross-Layer Feature based Multi-Granularity Visual Classification (VCIP 2022)
 
 
