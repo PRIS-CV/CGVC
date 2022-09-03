@@ -443,11 +443,11 @@ def main():
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
     ])
 
-    trainset = torchvision.datasets.ImageFolder(root=r'/data/chenjunhan/Cross-Granularity/Aircrafts/train', transform=transform_train)
+    trainset = torchvision.datasets.ImageFolder(root=r'/data/chenjunhan/Cross-Granularity/Airs/train', transform=transform_train)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4,
                                               drop_last=True)
 
-    testset = torchvision.datasets.ImageFolder(root=r'/data/chenjunhan/Cross-Granularity/Aircrafts/test', transform=transform_test)
+    testset = torchvision.datasets.ImageFolder(root=r'/data/chenjunhan/Cross-Granularity/Airs/test', transform=transform_test)
     testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4,
                                              drop_last=True)
     print('==> Successfully Preparing data..')
@@ -486,12 +486,12 @@ def main():
         {'params': nn.Sequential(*list(net.children())[:-13]).parameters(), 'lr': learning_rate / 10},
         # {'params': nn.Sequential(*list(net.children())[7:]).parameters(), 'lr': learning_rate}],
         {'params': net.fpn.parameters(), 'lr': learning_rate},
-        {'params': net.feature2.parameters(), 'lr': learning_rate / 100},
-        {'params': net.feature3.parameters(), 'lr': learning_rate / 10},
+        {'params': net.feature2.parameters(), 'lr': learning_rate},
+        {'params': net.feature3.parameters(), 'lr': learning_rate},
         {'params': net.feature4.parameters(), 'lr': learning_rate},
         {'params': net.feature5.parameters(), 'lr': learning_rate},
-        {'params': net.classifier2.parameters(), 'lr': learning_rate / 100},
-        {'params': net.classifier3.parameters(), 'lr': learning_rate / 10},
+        {'params': net.classifier2.parameters(), 'lr': learning_rate},
+        {'params': net.classifier3.parameters(), 'lr': learning_rate},
         {'params': net.classifier4.parameters(), 'lr': learning_rate},
         {'params': net.classifier5.parameters(), 'lr': learning_rate}],
         momentum=0.9, weight_decay=5e-4)
@@ -527,12 +527,12 @@ def main():
     for epoch in range(nb_epoch):
         optimizer.param_groups[0]['lr'] = cosine_anneal_schedule(epoch) / 10
         optimizer.param_groups[1]['lr'] = cosine_anneal_schedule(epoch)
-        optimizer.param_groups[2]['lr'] = cosine_anneal_schedule(epoch) / 100
-        optimizer.param_groups[3]['lr'] = cosine_anneal_schedule(epoch) / 10
+        optimizer.param_groups[2]['lr'] = cosine_anneal_schedule(epoch)
+        optimizer.param_groups[3]['lr'] = cosine_anneal_schedule(epoch)
         optimizer.param_groups[4]['lr'] = cosine_anneal_schedule(epoch)
         optimizer.param_groups[5]['lr'] = cosine_anneal_schedule(epoch)
-        optimizer.param_groups[6]['lr'] = cosine_anneal_schedule(epoch) / 100
-        optimizer.param_groups[7]['lr'] = cosine_anneal_schedule(epoch) / 10
+        optimizer.param_groups[6]['lr'] = cosine_anneal_schedule(epoch)
+        optimizer.param_groups[7]['lr'] = cosine_anneal_schedule(epoch)
         optimizer.param_groups[8]['lr'] = cosine_anneal_schedule(epoch)
         optimizer.param_groups[9]['lr'] = cosine_anneal_schedule(epoch)
         train(epoch, net, trainloader, optimizer)
